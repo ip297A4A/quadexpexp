@@ -21,7 +21,7 @@ def Qh(f,a=0,b=1,h=1/64.0,wanna_print=True,K=10):
   if a==b:
     return 0
   if a>b:
-    return -Qh(f,b,a,h,wanna_print,K))
+    return -Qh(f,b,a,h,wanna_print,K)
   if a==-mpmath.inf and b==mpmath.inf:
     return Qh(lambda x:f(div(x,(1-x**2)))*div((1+x**2),(1-x**2)**2),-1,1,h,wanna_print,K)
   if -mpmath.inf<a and a<mpmath.inf and b==mpmath.inf:

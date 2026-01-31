@@ -9,11 +9,11 @@ function [S,N]=Qh(f,a,b,h=1/64)
     return ;
   end
   if isfinite(a) && b==inf
-    [S,N]=Qh(@(x)f(a+x./(1-x))./(1-x).^2,0,1,h) ;
+    [S,N]=Qh(@(x)f(a-1+1./x)/x.^2,0,1,h) ;
     return ;
   end
   if a==-inf && isfinite(b)
-    [S,N]=Qh(@(x)f(b-x./(1-x))./(1-x).^2,0,1,h) ;
+    [S,N]=Qh(@(x)f(b+1-1./x)/x.^2,0,1,h) ;
     return ;
   end
   ba=b-a ;
@@ -48,11 +48,11 @@ function [S,N]=Qts(f,a,b,h=1/64)
     return ;
   end
   if isfinite(a) && b==Inf
-    [S,N]=Qts(@(x)f(a+x./(1-x))./(1-x).^2,0,1,h) ;
+    [S,N]=Qts(@(x)f(a-1+1./x)/x.^2,0,1,h) ;
     return ;
   end
   if a==-Inf && isfinite(b)
-    [S,N]=Qts(@(x)f(b-x./(1-x))./(1-x).^2,0,1,h) ;
+    [S,N]=Qts(@(x)f(b+1-1./x)/x.^2,0,1,h) ;
     return ;
   end
   ba=(b-a)/2 ; m=(a+b)/2 ;
@@ -91,9 +91,9 @@ ans = -6.899369964230573e-12
 >> Qts(@(x)log(2+cos(x+x.^2)),0,100,2^-15)-62.518029770285939532930943231054768985
 ans = -3.048228336410830e-12
 >> Qh(@exp,-inf,1)-exp(1)
-ans = -1.776356839400250e-15
+ans = -3.108624468950438e-15
 >> Qts(@exp,-inf,1)-exp(1)
-ans = -1.332267629550188e-15
+ans = 0
 >> Qh(@(x)exp(-pi*x.^2),-inf,inf)-1
 ans = -1.110223024625157e-16
 >> Qts(@(x)exp(-pi*x.^2),-inf,inf)-1
@@ -108,3 +108,4 @@ ans = 4.440892098500626e-16
 ans = 2.109423746787797e-15
 >>
 %}
+
